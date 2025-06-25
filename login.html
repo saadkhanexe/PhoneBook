@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | BatPhone</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+                  url('https://images.unsplash.com/photo-1591375275123-8fd3d46edffe?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .navbar {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 22px;
+      color: #f1f1f1;
+    }
+
+    .nav-links a {
+      margin-left: 20px;
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    form {
+      background-color: rgba(30, 30, 30, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      width: 300px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+      margin-top: 80px;
+    }
+
+    form h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #ccc;
+      font-weight: 400;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background-color: #2d2d2d;
+      color: white;
+      font-size: 14px;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #666;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 15px;
+      color: #aaa;
+    }
+
+    p a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>BatPhone</h1>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="signup.html">Signup</a>
+      <a href="login.html">Login</a>
+    </div>
+  </div>
+
+  <!-- Login Form -->
+  <form onsubmit="login(); return false">
+    <h2>Login</h2>
+    <input type="text" placeholder="Enter username" id="username" required>
+    <input type="password" placeholder="Enter password" id="pass" required>
+    <button>Login</button>
+    <p>
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </p>
+  </form>
+
+  <script>
+    function login() {
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("pass").value;
+
+      let storedUsername = localStorage.getItem("Username");
+      let storedpassword = localStorage.getItem("Pass");
+
+      if (username === storedUsername && password === storedpassword) {
+        alert("Login successful");
+        window.location.href = "contact.html";
+      } else {
+        alert("Invalid username or password");
+      }
+    }
+  </script>
+</body>
+</html>

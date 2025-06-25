@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Manager</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1f1f1f;
+      color: #f1f1f1;
+      padding: 0;
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #121212;
+      padding: 15px 30px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-bar h2 {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #bbb;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 30px 0 20px;
+      font-weight: 400;
+      color: #e0e0e0;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto 40px auto;
+      background-color: #2a2a2a;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background-color: #3a3a3a;
+      color: white;
+      font-size: 14px;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #5c5c5c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #777;
+    }
+
+    #unorder {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    li {
+      list-style: none;
+      background-color: #2f2f2f;
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      line-height: 1.6;
+    }
+
+    .button-group {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .button-group button {
+      flex: 1;
+      padding: 8px;
+      background-color: #444;
+      font-size: 13px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .button-group button:hover {
+      background-color: #666;
+    }
+
+    #search{
+      width: 600px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <div class="nav-bar">
+    <h2>BatPhone</h2>
+    <div>
+      <input type="text" placeholder="Search your contact here" id="search">
+    </div>
+    <div class="nav-links">
+      <!-- <a href="#">Home</a>
+      <a href="signup.html">Signup</a> -->
+      <a href="./home.html" >Logout</a>
+    </div>
+  </div>
+
+  <h1>Store your contacts</h1>
+
+  <form onsubmit="add(); return false;">
+    <input type="text" placeholder="Enter a Name" required id="name">
+    <input type="text" placeholder="Enter an Email" required id="email">
+    <input type="number" placeholder="Enter a Number" required id="num">
+    <button>Add</button>
+  </form>
+
+  <h1>List of Contacts</h1>
+  <div id="unorder"></div>
+
+  <script>
+    function add() {
+      let name = document.getElementById("name").value;
+      let email = document.getElementById("email").value;
+      let phone = document.getElementById("num").value;
+      let id = Number(localStorage.getItem("count")) + 1;
+
+      localStorage.setItem("count", id);
+      localStorage.setItem("name_" + id, name);
+      localStorage.setItem("email_" + id, email);
+      localStorage.setItem("phone_" + id, phone);
+      localStorage.setItem("status_" + id, "active");
+
+      showContact();
+
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("num").value = "";
+    }
+
+    function showContact() {
+      let unorder = document.getElementById("unorder");
+      unorder.innerHTML = "";
+
+      let count = localStorage.getItem("count");
+      if (!count) return;
+
+      for (let i = 1; i <= count; i++) {
+        if (localStorage.getItem("status_" + i) === "active") {
+          let name = localStorage.getItem("name_" + i);
+          let email = localStorage.getItem("email_" + i);
+          let phone = localStorage.getItem("phone_" + i);
+
+          let list = document.createElement("li");
+          list.innerHTML = `
+            <strong>${name}</strong><br>
+            ${email}<br>
+            ${phone}
+            <div class="button-group">
+              <button onclick="editContact(${i})">Edit</button>
+              <button onclick="deletes(${i})">Delete</button>
+            </div>
+          `;
+          unorder.append(list);
+        }
+      }
+    }
+
+    function editContact(id) {
+      document.getElementById("name").value = localStorage.getItem("name_" + id);
+      document.getElementById("email").value = localStorage.getItem("email_" + id);
+      document.getElementById("num").value = localStorage.getItem("phone_" + id);
+
+      localStorage.removeItem("name_" + id);
+      localStorage.removeItem("email_" + id);
+      localStorage.removeItem("phone_" + id);
+      localStorage.removeItem("status_" + id);
+
+      showContact();
+    }
+
+    function deletes(id) {
+      localStorage.removeItem("name_" + id);
+      localStorage.removeItem("email_" + id);
+      localStorage.removeItem("phone_" + id);
+      localStorage.removeItem("status_" + id);
+      showContact();
+    }
+
+
+    // function logout() {
+    //   localStorage.removeItem("Username");
+    //   localStorage.removeItem("Pass");
+    //   window.location.href = "home.html";
+    // }
+
+    showContact();
+  </script>
+</body>
+</html>

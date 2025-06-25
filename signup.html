@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup | BatPhone</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url('https://images.unsplash.com/photo-1607203000314-44dc8f3e32be?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 22px;
+      color: #f1f1f1;
+    }
+
+    .nav-links a {
+      margin-left: 20px;
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+      width: 100%;
+    }
+
+    form {
+      background-color: rgba(20, 20, 20, 0.85);
+      padding: 30px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+
+    form h2 {
+      text-align: center;
+      color: #ccc;
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background-color: #2e2e2e;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #444;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #666;
+    }
+
+    p {
+      text-align: center;
+      color: #aaa;
+      margin-top: 10px;
+    }
+
+    p a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>BatPhone</h1>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="#">Help</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <form onsubmit="signup(); return false;">
+      <h2>Create Account</h2>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="number" id="number" placeholder="Phone Number" required>
+      <input type="password" id="pass" placeholder="Password" required>
+      <button>Signup</button>
+      <p>Already have an account? <a href="login.html">Login</a></p>
+    </form>
+  </div>
+
+  <script>
+    function signup() {
+      let username = document.getElementById("username").value;
+      let email = document.getElementById("email").value;
+      let number = document.getElementById("number").value;
+      let pass = document.getElementById("pass").value;
+
+      localStorage.setItem("Username", username);
+      localStorage.setItem("Email", email);
+      localStorage.setItem("Number", number);
+      localStorage.setItem("Pass", pass);
+
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

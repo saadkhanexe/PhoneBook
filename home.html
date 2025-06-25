@@ -1,0 +1,125 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BatPhone Directory</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?fm=jpg&q=60&w=3000') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .nav-bar {
+      height: 75px;
+      background-color: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+    }
+
+    .left img {
+      height: 50px;
+    }
+
+    .middle {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    #search {
+      width: 50%;
+      height: 35px;
+      border-radius: 6px;
+      border: none;
+      padding: 0 15px;
+      font-size: 15px;
+      background-color: #f0f0f0;
+      color: #222;
+    }
+
+    .right {
+      display: flex;
+      gap: 20px;
+    }
+
+    .right a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #f0f0f0;
+      transition: 0.3s;
+    }
+
+    .right a:hover {
+      color: #aaa;
+    }
+
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 75px);
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .main-content h1 {
+      font-size: 48px;
+      font-weight: 300;
+      max-width: 800px;
+      line-height: 1.3;
+    }
+
+    @media screen and (max-width: 768px) {
+      .right {
+        gap: 10px;
+        font-size: 14px;
+      }
+
+      #search {
+        width: 80%;
+      }
+
+      .main-content h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="nav-bar">
+      <div class="left">
+        <img src="data:image/png;base64,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" alt="Logo"/>
+      </div>
+      <div class="middle">
+        <input type="text" placeholder="Search..." id="search">
+      </div>
+      <div class="right">
+        <a href="signup.html">Signup</a>
+        <a href="login.html">Login</a>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <h1>Welcome to BatPhone  - Your Modern and Simple Contact Directory
+    </div>
+  </div>
+</body>
+</html>
